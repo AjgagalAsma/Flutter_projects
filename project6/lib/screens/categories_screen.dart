@@ -7,10 +7,10 @@ class categoriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.only(top: 15, left: 8, right: 8, bottom: 5),
       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: 200,
-          childAspectRatio: 7 / 8,
+          childAspectRatio: 8 / 8,
           mainAxisSpacing: 10,
           crossAxisSpacing: 10),
       children: Categories_data.map((e) =>

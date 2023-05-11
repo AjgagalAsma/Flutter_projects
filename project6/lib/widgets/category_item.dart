@@ -34,19 +34,15 @@ class categoryItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(15),
             child: Image.network(
               imageUrl,
-              height: 258,
+              height: 250,
               fit: BoxFit.cover,
             ),
           ),
           Container(
+            padding: EdgeInsets.all(10),
             alignment: Alignment.center,
-            child: Text(
-              title,
-              style: TextStyle(
-                fontSize: 28,
-                color: Colors.white,
-              ),
-            ),
+            child:
+                Text(title, style: Theme.of(context).textTheme.headlineMedium),
             decoration: BoxDecoration(
               color: Colors.black.withOpacity(0.4),
               borderRadius: BorderRadius.circular(15),
