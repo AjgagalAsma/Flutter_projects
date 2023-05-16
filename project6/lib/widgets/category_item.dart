@@ -14,13 +14,15 @@ class categoryItem extends StatelessWidget {
 
   void SelectCategory(BuildContext ctx) {
     Navigator.push(
-        ctx,
-        MaterialPageRoute(
-            builder: (ctx) => CategoryTripsScreen(
-                  id: id,
-                  title: title,
-                  imageUrl: imageUrl,
-                )));
+      ctx,
+      MaterialPageRoute(
+        builder: (ctx) => CategoryTripsScreen(
+          id: id,
+          title: title,
+          imageUrl: imageUrl,
+        ),
+      ),
+    );
   }
 
   Widget build(BuildContext context) {

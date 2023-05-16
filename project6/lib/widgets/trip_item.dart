@@ -9,6 +9,7 @@ class TripItem extends StatelessWidget {
   final int duration;
   final Season season;
   final TripType tripType;
+  final Function removeItem;
 
   const TripItem(
       {super.key,
@@ -17,7 +18,8 @@ class TripItem extends StatelessWidget {
       required this.imageUrl,
       required this.duration,
       required this.season,
-      required this.tripType});
+      required this.tripType,
+      required this.removeItem});
 
   String get seasonText {
     if (season == Season.Winter) return "شتاء";
@@ -39,6 +41,7 @@ class TripItem extends StatelessWidget {
       return 'غير معروف';
   }
 
+  // no problem
   void selectTrip(BuildContext ctx) {
     Navigator.push(
       ctx,
@@ -47,7 +50,9 @@ class TripItem extends StatelessWidget {
           tripId: id,
         ),
       ),
-    );
+    ).then((value) {
+      if (value != null) removeItem(value);
+    });
   }
 
   @override
