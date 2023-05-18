@@ -38,20 +38,11 @@ class AppDrawer extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           listTitleMethode("الرحلات", Icons.card_travel, () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: ((context) => const TabsScreen()),
-              ),
-            );
+            Navigator.of(context).pushReplacementNamed("/");
           }),
           listTitleMethode("الفلترة", Icons.filter_list, () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: ((context) => const FiltersScreen()),
-              ),
-            );
+            Navigator.of(context)
+                .pushReplacementNamed(FiltersScreen.screenRoute);
           })
         ],
       ),

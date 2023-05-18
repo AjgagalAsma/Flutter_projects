@@ -9,17 +9,18 @@ class TripItem extends StatelessWidget {
   final int duration;
   final Season season;
   final TripType tripType;
-  final Function removeItem;
+  final Function(String) removeItem;
 
-  const TripItem(
-      {super.key,
-      required this.id,
-      required this.title,
-      required this.imageUrl,
-      required this.duration,
-      required this.season,
-      required this.tripType,
-      required this.removeItem});
+  const TripItem({
+    Key? key,
+    required this.id,
+    required this.title,
+    required this.imageUrl,
+    required this.duration,
+    required this.season,
+    required this.tripType,
+    required this.removeItem,
+  });
 
   String get seasonText {
     if (season == Season.Winter) return "شتاء";
@@ -43,15 +44,10 @@ class TripItem extends StatelessWidget {
 
   // no problem
   void selectTrip(BuildContext ctx) {
-    Navigator.push(
-      ctx,
-      MaterialPageRoute(
-        builder: (ctx) => TripDetailScreen(
-          tripId: id,
-        ),
-      ),
-    ).then((value) {
-      if (value != null) removeItem(value);
+    Navigator.of(ctx)
+        .pushNamed(TripDetailScreen.screenRoute, arguments: id)
+        .then((value) {
+      if (value != null) removeItem(value as String);
     });
   }
 

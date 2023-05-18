@@ -3,8 +3,7 @@ import 'package:project6/models/trip.dart';
 import '../app_data.dart';
 
 class TripDetailScreen extends StatelessWidget {
-  final String tripId;
-  const TripDetailScreen({super.key, required this.tripId});
+  static const screenRoute = "/screen_trips_detail";
 
   Widget BuildSectionTitle(BuildContext cnx, String titleText) {
     return Container(
@@ -32,6 +31,8 @@ class TripDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final tripId = ModalRoute.of(context)!.settings.arguments as String;
+
     final selectTrip = Trips_data.firstWhere((trip) => trip.id == tripId);
     return Scaffold(
       appBar: AppBar(

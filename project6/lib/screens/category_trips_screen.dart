@@ -1,32 +1,38 @@
 import 'package:flutter/material.dart';
-import '../app_data.dart';
 import '../widgets/trip_item.dart';
 import '../models/trip.dart';
 
 class CategoryTripsScreen extends StatefulWidget {
-  final String id;
-  final String title;
-  final String imageUrl;
+  static const screenRoute = "/category_trips";
 
-  const CategoryTripsScreen(
-      {super.key,
-      required this.id,
-      required this.title,
-      required this.imageUrl});
+  final List<Trip> availableTrips;
+  const CategoryTripsScreen(this.availableTrips);
 
   @override
   State<CategoryTripsScreen> createState() => _CategoryTripsScreenState();
 }
 
 class _CategoryTripsScreenState extends State<CategoryTripsScreen> {
+  String categoryTitle = "";
   List<Trip> filterTrip = [];
+
   @override
   void initState() {
-    filterTrip = Trips_data.where((trip) {
-      return trip.categories.contains(widget.id);
-    }).toList();
     // TODO: implement initState
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    final routeArgument =
+        ModalRoute.of(context)!.settings.arguments as Map<String, String>;
+
+    final categoryId = routeArgument["id"];
+    categoryTitle = routeArgument["title"] as String;
+    filterTrip = widget.availableTrips.where((trip) {
+      return trip.categories.contains(categoryId);
+    }).toList();
+    super.didChangeDependencies();
   }
 
   void removeItem(String value) {
@@ -35,10 +41,11 @@ class _CategoryTripsScreenState extends State<CategoryTripsScreen> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(categoryTitle),
       ),
       body: ListView.builder(
         itemBuilder: (context, index) {
