@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:project6/models/trip.dart';
+import './categories_screen.dart';
 import '../app_data.dart';
 
-class TripDetailScreen extends StatelessWidget {
-  static const screenRoute = "/screen_trips_detail";
+class FavoriteTripDetailScreen extends StatelessWidget {
+  static const screenRoute = "/favorite_screen_trips_detail";
 
   final Function manageFavorite;
-  final Function isFavorite;
-  TripDetailScreen(this.manageFavorite, this.isFavorite);
+  FavoriteTripDetailScreen(this.manageFavorite);
 
   Widget BuildSectionTitle(BuildContext cnx, String titleText) {
     return Container(
@@ -86,11 +86,10 @@ class TripDetailScreen extends StatelessWidget {
       ),
       // no problem
       floatingActionButton: FloatingActionButton(
-        child: Icon(
-          isFavorite(tripId) ? Icons.star : Icons.star_border,
-        ),
+        child: Icon(Icons.star),
         onPressed: () {
           manageFavorite(tripId);
+          Navigator.of(context).pushNamed("/");
         },
         backgroundColor: Colors.amber,
       ),

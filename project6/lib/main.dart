@@ -5,6 +5,7 @@ import 'package:project6/screens/category_trips_screen.dart';
 import 'package:project6/screens/filters_screen.dart';
 import 'package:project6/screens/tabs_screen.dart';
 import 'package:project6/screens/trip_detail_screen.dart';
+import './screens/favorite_trip_detail_screen.dart';
 import './models/trip.dart';
 
 void main() {
@@ -26,6 +27,7 @@ class _MyAppState extends State<MyApp> {
   };
 
   List<Trip> _availableTrips = Trips_data;
+  List<Trip> _favoriteTrips = [];
 
   void _changeFilters(Map<String, bool> filtersData) {
     setState(() {
@@ -39,6 +41,26 @@ class _MyAppState extends State<MyApp> {
         return true;
       }).toList();
     });
+  }
+
+  void _manageFavorite(String tripId) {
+    final existingIndex =
+        _favoriteTrips.indexWhere((trip) => trip.id == tripId);
+    if (existingIndex >= 0) {
+      setState(() {
+        _favoriteTrips.removeAt(existingIndex);
+      });
+    } else {
+      setState(() {
+        _favoriteTrips.add(
+          Trips_data.firstWhere((trip) => trip.id == tripId),
+        );
+      });
+    }
+  }
+
+  bool _isFavorite(String id) {
+    return _favoriteTrips.any((trip) => trip.id == id);
   }
 
   @override
@@ -58,10 +80,13 @@ class _MyAppState extends State<MyApp> {
                   fontWeight: FontWeight.bold))),
       initialRoute: "/",
       routes: {
-        "/": (ctx) => TabsScreen(),
+        "/": (ctx) => TabsScreen(favoriteTrips: _favoriteTrips),
         CategoryTripsScreen.screenRoute: (ctx) =>
             CategoryTripsScreen(_availableTrips),
-        TripDetailScreen.screenRoute: (ctx) => TripDetailScreen(),
+        TripDetailScreen.screenRoute: (ctx) =>
+            TripDetailScreen(_manageFavorite, _isFavorite),
+        FavoriteTripDetailScreen.screenRoute: (ctx) =>
+            FavoriteTripDetailScreen(_manageFavorite),
         FiltersScreen.screenRoute: (ctx) =>
             FiltersScreen(_filters, _changeFilters),
       },

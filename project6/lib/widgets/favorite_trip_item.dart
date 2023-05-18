@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import '../models/trip.dart';
 import '../screens/trip_detail_screen.dart';
+import '../screens/favorite_trip_detail_screen.dart';
 
-class TripItem extends StatelessWidget {
+class FavoriteTripItem extends StatelessWidget {
   final String id;
   final String title;
   final String imageUrl;
@@ -11,7 +12,7 @@ class TripItem extends StatelessWidget {
   final TripType tripType;
   // final Function(String) removeItem;
 
-  const TripItem({
+  const FavoriteTripItem({
     Key? key,
     required this.id,
     required this.title,
@@ -45,7 +46,7 @@ class TripItem extends StatelessWidget {
   // no problem
   void selectTrip(BuildContext ctx) {
     Navigator.of(ctx)
-        .pushNamed(TripDetailScreen.screenRoute, arguments: id)
+        .pushNamed(FavoriteTripDetailScreen.screenRoute, arguments: id)
         .then((value) {
       // if (value != null) removeItem(value as String);
     });
